@@ -6,6 +6,7 @@ export class QRGenerator {
       return new QRCode({
         content: text,
         container: 'svg-viewbox',
+        join: true,
       }).svg();
     } catch (error) {
       throw new Error(

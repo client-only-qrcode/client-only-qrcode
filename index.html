@@ -3,6 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self';"
+    />
     <title>Client-only QR code generator</title>
     <meta name="description" content="A client-only QR code generator using JavaScript." />
     <meta name="keywords" content="QR code, generator, client-only, JavaScript" />
@@ -42,7 +46,9 @@
     <footer>
       <p>
         Hosted on <a href="https://pages.github.com/" rel="noopener noreferrer">GitHub Pages</a> |
-        <a href="https://github.com/client-only-qrcode/client-only-qrcode.github.io" rel="noopener noreferrer"
+        <a
+          href="https://github.com/client-only-qrcode/client-only-qrcode.github.io"
+          rel="noopener noreferrer"
           >Source</a
         >
       </p>
