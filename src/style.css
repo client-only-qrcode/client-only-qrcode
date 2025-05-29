@@ -79,7 +79,7 @@ form {
   font-family: inherit;
   border-radius: 8px;
   border: 1px solid rgb(255 255 255 / 20%);
-  background-color: rgb(255 255 255 / 10%);
+  background-color: #222;
   color: inherit;
   box-shadow: inset 0 1px 2px rgb(0 0 0 / 10%);
   transition:
@@ -117,6 +117,12 @@ footer {
   color: rgb(255 255 255 / 60%);
 }
 
+.error-message {
+  color: #ff4d4d;
+  text-align: center;
+  margin: 2em;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -124,7 +130,7 @@ footer {
   }
 
   body {
-    color: #213547;
+    color: #242424;
     background-color: #fff;
   }
 
@@ -137,15 +143,15 @@ footer {
   }
 
   a {
-    color: rgb(33 53 71 / 60%);
+    color: #242424;
   }
 
   a:hover {
-    color: rgb(33 53 71 / 87%);
+    color: #213547;
   }
 
   footer {
-    color: rgb(33 53 71 / 60%);
+    color: #242424;
   }
 
   #input-text {

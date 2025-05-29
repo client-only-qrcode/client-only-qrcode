@@ -1,15 +1,13 @@
 import { QRGenerator } from '../core/qr-generator';
 import type { URLHashManager } from '../core/url-hash-manager';
-import type { FileDownloader } from '../core/file-downloader';
 import { FilenameSanitizer } from '../utils/filename-sanitizer';
-import { sanitizeSVG } from '../utils/svg-sanitizer';
+import { sanitizeSVG, sanitizeRemoveSVGStyles } from '../utils/svg-sanitizer';
 
 export interface QRCodeControllerOptions {
   containerSelector: string;
   inputSelector: string;
   qrGenerator: QRGenerator;
   urlHashManager: URLHashManager;
-  fileDownloader: FileDownloader;
 }
 
 export interface QRCodeControllerElements {
@@ -21,14 +19,13 @@ export class QRCodeController {
   private elements: QRCodeControllerElements;
   private qrGenerator: QRGenerator;
   private urlHashManager: URLHashManager;
-  private fileDownloader: FileDownloader;
-  private currentSVGContent: string | null = null;
+  private unstyledSVGContent: string | null = null;
+  private styledSVGContent: string | null = null;
   private abortController: AbortController | null = null;
 
   constructor(options: QRCodeControllerOptions) {
     this.qrGenerator = options.qrGenerator;
     this.urlHashManager = options.urlHashManager;
-    this.fileDownloader = options.fileDownloader;
 
     const container = document.querySelector<HTMLDivElement>(options.containerSelector);
     const input = document.querySelector<HTMLInputElement>(options.inputSelector);
@@ -116,7 +113,8 @@ export class QRCodeController {
 
     try {
       const rawSVG = await this.qrGenerator.generateSVG(text);
-      this.currentSVGContent = sanitizeSVG(rawSVG);
+      this.styledSVGContent = sanitizeSVG(rawSVG);
+      this.unstyledSVGContent = sanitizeRemoveSVGStyles(this.styledSVGContent);
       this.renderQRCode();
     } catch (error) {
       throw new Error(
@@ -126,38 +124,35 @@ export class QRCodeController {
   }
 
   private renderQRCode(): void {
-    if (!this.currentSVGContent) return;
+    if (!this.unstyledSVGContent || !this.styledSVGContent) return;
 
     // Clear container
     this.elements.container.innerHTML = '';
 
-    // Parse SVG and append safely
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(this.currentSVGContent, 'image/svg+xml');
-    const svgElement = doc.documentElement as unknown as SVGElement;
-    this.elements.container.appendChild(svgElement);
-    this.attachDownloadHandler(svgElement);
-  }
-
-  private attachDownloadHandler(svgElement: SVGElement): void {
-    svgElement.setAttribute('title', 'Click to download');
-
-    svgElement.addEventListener('click', this.handleDownload.bind(this), {
-      signal: this.abortController?.signal,
-    });
-  }
-
-  private handleDownload(): void {
-    if (!this.currentSVGContent) return;
-
+    // Create download link
+    const a = document.createElement('a');
     const currentText = this.getCurrentText();
-    const filename = FilenameSanitizer.generateQRCodeFilename(currentText);
+    a.download = FilenameSanitizer.generateQRCodeFilename(currentText);
+    a.title = 'Click to download';
 
-    this.fileDownloader.download({
-      filename,
-      content: this.currentSVGContent,
-      mimeType: 'image/svg+xml',
-    });
+    // Create data URL for SVG
+    const blob = new Blob([this.styledSVGContent], { type: 'image/svg+xml' });
+    a.href = URL.createObjectURL(blob);
+
+    // Parse SVG and append to link
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(this.unstyledSVGContent, 'image/svg+xml');
+    const svgElement = doc.documentElement as unknown as SVGElement;
+
+    // Add accessible label to SVG
+    const ariaLabel = `QR code for: ${currentText}`;
+    svgElement.setAttribute('aria-label', ariaLabel);
+    svgElement.setAttribute('role', 'img');
+
+    a.appendChild(svgElement);
+
+    // Append link to container
+    this.elements.container.appendChild(a);
   }
 
   private handleError(error: unknown): void {
