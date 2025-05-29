@@ -56,6 +56,14 @@ body {
   box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
 }
 
+#qr-code svg rect {
+  fill: #fff;
+}
+
+#qr-code svg path {
+  fill: #242424;
+}
+
 form {
   max-width: 400px;
   margin: 2em auto;

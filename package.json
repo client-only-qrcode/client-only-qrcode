@@ -24,12 +24,14 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.27.0",
+    "@types/dompurify": "^3.2.0",
     "@types/eslint": "^9.6.1",
     "@types/qrcode-svg": "^1.1.5",
     "@typescript-eslint/eslint-plugin": "^8.33.0",
     "@typescript-eslint/parser": "^8.33.0",
     "@vitest/coverage-v8": "3.1.4",
     "@vitest/ui": "^3.1.4",
+    "dompurify": "^3.2.6",
     "eslint": "^9.27.0",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-prettier": "^5.4.0",
@@ -43,8 +45,6 @@
     "stylelint-config-standard": "^38.0.0",
     "typescript": "~5.8.3",
     "vite": "^6.3.5",
-    "vite-plugin-minify": "^2.1.0",
-    "vite-plugin-singlefile": "^2.2.0",
     "vitest": "^3.1.4"
   }
 }

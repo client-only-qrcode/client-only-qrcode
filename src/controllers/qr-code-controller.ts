@@ -2,6 +2,7 @@ import { QRGenerator } from '../core/qr-generator';
 import type { URLHashManager } from '../core/url-hash-manager';
 import type { FileDownloader } from '../core/file-downloader';
 import { FilenameSanitizer } from '../utils/filename-sanitizer';
+import { sanitizeSVG } from '../utils/svg-sanitizer';
 
 export interface QRCodeControllerOptions {
   containerSelector: string;
@@ -114,7 +115,8 @@ export class QRCodeController {
     const text = this.getCurrentText();
 
     try {
-      this.currentSVGContent = await this.qrGenerator.generateSVG(text);
+      const rawSVG = await this.qrGenerator.generateSVG(text);
+      this.currentSVGContent = sanitizeSVG(rawSVG);
       this.renderQRCode();
     } catch (error) {
       throw new Error(
@@ -126,16 +128,18 @@ export class QRCodeController {
   private renderQRCode(): void {
     if (!this.currentSVGContent) return;
 
-    this.elements.container.innerHTML = this.currentSVGContent;
+    // Clear container
+    this.elements.container.innerHTML = '';
 
-    const svgElement = this.elements.container.querySelector('svg');
-    if (svgElement) {
-      this.attachDownloadHandler(svgElement);
-    }
+    // Parse SVG and append safely
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(this.currentSVGContent, 'image/svg+xml');
+    const svgElement = doc.documentElement as unknown as SVGElement;
+    this.elements.container.appendChild(svgElement);
+    this.attachDownloadHandler(svgElement);
   }
 
   private attachDownloadHandler(svgElement: SVGElement): void {
-    svgElement.style.cursor = 'pointer';
     svgElement.setAttribute('title', 'Click to download');
 
     svgElement.addEventListener('click', this.handleDownload.bind(this), {
@@ -160,18 +164,17 @@ export class QRCodeController {
     console.error('QR Code Controller Error:', error);
 
     const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
-    this.elements.container.innerHTML = `
-      <div style="color: red; padding: 20px; text-align: center;">
-        <p>Error: ${this.escapeHtml(errorMessage)}</p>
-        <p>Please refresh the page and try again.</p>
-      </div>
-    `;
-  }
 
-  private escapeHtml(text: string): string {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
+    // Clear container and create error message safely
+    this.elements.container.innerHTML = '';
+    const errorDiv = document.createElement('div');
+
+    const errorText = document.createTextNode(
+      `Error: ${errorMessage}. Please refresh the page and try again.`
+    );
+    errorDiv.appendChild(errorText);
+
+    this.elements.container.appendChild(errorDiv);
   }
 
   destroy(): void {
