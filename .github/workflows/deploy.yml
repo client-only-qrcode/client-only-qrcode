@@ -6,6 +6,16 @@ on:
     types: [completed]
     branches: [main]
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Use 'pages' as the concurrency group to ensure that only one deployment job runs at a time for the GitHub Pages site.
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
 jobs:
   deploy:
     # Only deploy if CI workflow succeeded
