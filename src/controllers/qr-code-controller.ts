@@ -134,6 +134,7 @@ export class QRCodeController {
     const currentText = this.getCurrentText();
     a.download = FilenameSanitizer.generateQRCodeFilename(currentText);
     a.title = 'Click to download';
+    a.setAttribute('aria-label', `Download QR code for: ${currentText}`);
 
     // Create data URL for SVG
     const blob = new Blob([this.styledSVGContent], { type: 'image/svg+xml' });
