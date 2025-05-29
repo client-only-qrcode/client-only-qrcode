@@ -7,6 +7,7 @@ on:
     branches: [main]
 
 permissions:
+  actions: read
   contents: read
   pages: write
   id-token: write
@@ -27,6 +28,8 @@ jobs:
         with:
           name: dist
           path: dist
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
