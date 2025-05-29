@@ -8,7 +8,8 @@ on:
 
 permissions:
   actions: read
-  contents: read
+  # Required for the peaceiris/actions-gh-pages action to deploy to GitHub Pages
+  contents: write
   pages: write
   id-token: write
 
