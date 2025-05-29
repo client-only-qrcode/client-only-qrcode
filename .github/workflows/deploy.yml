@@ -14,7 +14,7 @@ permissions:
 # Use 'pages' as the concurrency group to ensure that only one deployment job runs at a time for the GitHub Pages site.
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   deploy:
