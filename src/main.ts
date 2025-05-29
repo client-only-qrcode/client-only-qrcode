@@ -1,7 +1,6 @@
 import { QRCodeController } from './controllers/qr-code-controller';
 import { QRGenerator } from './core/qr-generator';
 import { BrowserURLHashManager } from './core/url-hash-manager';
-import { BrowserFileDownloader } from './core/file-downloader';
 
 // Application entry point
 async function initializeApp(): Promise<void> {
@@ -9,7 +8,6 @@ async function initializeApp(): Promise<void> {
     // Create instances of dependencies
     const qrGenerator = new QRGenerator();
     const urlHashManager = new BrowserURLHashManager();
-    const fileDownloader = new BrowserFileDownloader();
 
     // Create and initialize the controller
     const controller = new QRCodeController({
@@ -17,7 +15,6 @@ async function initializeApp(): Promise<void> {
       inputSelector: '#input-text',
       qrGenerator,
       urlHashManager,
-      fileDownloader,
     });
 
     await controller.initialize();
@@ -41,7 +38,7 @@ async function initializeApp(): Promise<void> {
     const container = document.querySelector<HTMLDivElement>('#qr-code');
     if (container) {
       container.innerHTML = `
-        <div style="color: red; padding: 20px; text-align: center;">
+        <div class="error-message">
           <p>Failed to initialize the application.</p>
           <p>Please refresh the page and try again.</p>
         </div>
