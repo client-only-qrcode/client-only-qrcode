@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://client-only-qrcode.github.io/sitemap.xml

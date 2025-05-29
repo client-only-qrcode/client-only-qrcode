@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Client-only QR code generator</title>
+    <meta name="description" content="A client-only QR code generator using JavaScript." />
+    <meta name="keywords" content="QR code, generator, client-only, JavaScript" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href="https://client-only-qrcode.github.io/" />
+    <meta property="og:title" content="Client-only QR code generator" />
+    <meta property="og:description" content="A client-only QR code generator using JavaScript." />
+    <meta property="og:image" content="https://client-only-qrcode.github.io/og-image.png" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Client-only QR Code Generator",
+        "description": "A client-only QR code generator using JavaScript",
+        "url": "https://client-only-qrcode.github.io/",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Any",
+        "keywords": "QR code, generator, client-only, JavaScript",
+        "author": {
+          "@type": "Organization",
+          "name": "Client-only QR Code Generator",
+          "url": "https://github.com/client-only-qrcode"
+        }
+      }
+    </script>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div id="qr-code"></div>
+      <form>
+        <label for="input-text">QR code text</label>
+        <input type="text" name="input-text" id="input-text" placeholder="Enter text for QR code" />
+      </form>
+    </div>
+    <footer>
+      <p>
+        Hosted on <a href="https://pages.github.com/" rel="noopener noreferrer">GitHub Pages</a> |
+        <a href="https://github.com/client-only-qrcode/client-only-qrcode" rel="noopener noreferrer"
+          >Source</a
+        >
+      </p>
+    </footer>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
