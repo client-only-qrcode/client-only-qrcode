@@ -1,7 +1,6 @@
 {
-  "@schema": "https://json.schemastore.org/package.json",
   "name": "client-only-qrcode",
-  "homepage": "https://client-only-qrcode.github.io/client-only-qrcode/",
+  "homepage": "https://client-only-qrcode.github.io/",
   "packageManager": "pnpm@10.11.0",
   "version": "1.0.0",
   "type": "module",
