@@ -66,4 +66,16 @@ To deploy manually:
    - Deploy to GitHub Pages
 4. Your updated site will be live within minutes.
 
+### Environment Variables for Deployment
+
+Before deploying to GitHub Pages, ensure you set the following environment variables in your GitHub
+repository settings (under Settings > Secrets and variables > Actions). These variables are defined
+in `.env.local.example`:
+
+- `VITE_FB_APP_ID`: Your Facebook App ID for authentication (if applicable)
+- `VITE_PUBLIC_URL`: The base URL for your deployment (e.g.,
+  `https://your-username.github.io/repo-name/`)
+
+These variables are used during the build process to configure the application for production.
+
 The deployment will only occur if all CI checks pass.
