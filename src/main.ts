@@ -19,6 +19,14 @@ async function initializeApp(): Promise<void> {
 
     await controller.initialize();
 
+    // Add form submit handler to prevent page reload
+    const form = document.querySelector('form');
+    if (form) {
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+      });
+    }
+
     // Clean up on page unload
     window.addEventListener('beforeunload', () => {
       controller.destroy();
