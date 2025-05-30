@@ -34,8 +34,8 @@ jobs:
       - name: Build project
         run: pnpm run build
         env:
-          VITE_PUBLIC_URL: ${{ env.VITE_PUBLIC_URL }}
-          VITE_FB_APP_ID: ${{ env.VITE_FB_APP_ID }}
+          VITE_PUBLIC_URL: ${{ vars.VITE_PUBLIC_URL }}
+          VITE_FB_APP_ID: ${{ vars.VITE_FB_APP_ID }}
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
