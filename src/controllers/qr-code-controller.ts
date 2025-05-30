@@ -164,6 +164,7 @@ export class QRCodeController {
     // Clear container and create error message safely
     this.elements.container.innerHTML = '';
     const errorDiv = document.createElement('div');
+    errorDiv.className = 'error-message';
 
     const errorText = document.createTextNode(
       `Error: ${errorMessage}. Please refresh the page and try again.`
