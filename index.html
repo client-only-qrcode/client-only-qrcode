@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-  <head><meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; script-src 'sha256-9El6KDR34ajQgAnqCfScqr5M0IwsaufjPasolMTFrjU=' 'sha256-SDQI4/Z0tMnhvdg+NQihvay6ZbBVpJDJhJlh1kCVN1w=' 'strict-dynamic'; style-src 'sha256-2y3zzr/tbcTI5D5cLJVM3N+pD+e3q+DJDbXs6MBRPN8=' 'self'" />
+  <head><meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; script-src 'sha256-9El6KDR34ajQgAnqCfScqr5M0IwsaufjPasolMTFrjU=' 'sha256-SDQI4/Z0tMnhvdg+NQihvay6ZbBVpJDJhJlh1kCVN1w=' 'strict-dynamic'; style-src 'sha256-02kENAjYtpsV7Puw7OXvW6vPrR24e9Fr0o56GNcXXW0=' 'self'" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="Content-Security-Policy" content="" />
@@ -161,6 +161,12 @@
         margin: 2em;
       }
 
+      .preload-spacer {
+        width: 100%;
+        height: 0;
+        padding-bottom: 100%; /* Maintain aspect ratio */
+      }
+
       @media (prefers-color-scheme: light) {
         :root {
           color: #213547;
@@ -204,7 +210,9 @@
   </head>
   <body>
     <div id="app">
-      <div id="qr-code"></div>
+      <div id="qr-code">
+        <div class="preload-spacer"><!-- This placeholder prevents layout shift --></div>
+      </div>
       <form>
         <label for="input-text">QR code text</label>
         <input type="text" name="input-text" id="input-text" placeholder="Enter text for QR code" />
