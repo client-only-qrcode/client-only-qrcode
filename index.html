@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-  <head><meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; script-src 'sha256-yatBPeZWHZS1GmnZePh4sNJ10yNW4dEGXYhaWbBOGNY=' 'sha256-SDQI4/Z0tMnhvdg+NQihvay6ZbBVpJDJhJlh1kCVN1w=' 'strict-dynamic'; style-src 'sha256-8lFJxnjUD6HyPyp6XREA63d3tchPR0XVO2P8VHsFREA=' 'self'" />
+  <head><meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; script-src 'sha256-yatBPeZWHZS1GmnZePh4sNJ10yNW4dEGXYhaWbBOGNY=' 'sha256-SDQI4/Z0tMnhvdg+NQihvay6ZbBVpJDJhJlh1kCVN1w=' 'strict-dynamic'; style-src 'sha256-VreErFgKo9Sdd4LNqW+RPU012UKMGrPPvl6eYpltW8M=' 'self'" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="Content-Security-Policy" content="" />
@@ -158,7 +158,14 @@
       .error-message {
         color: #ff4d4d;
         text-align: center;
-        margin: 2em;
+        aspect-ratio: 1 / 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2em;
+        border-radius: 8px;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
       }
 
       .preload-spacer {
