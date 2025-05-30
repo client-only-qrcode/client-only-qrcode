@@ -9,17 +9,20 @@
     <meta name="keywords" content="QR code, generator, client-only, JavaScript" />
     <link rel="icon" href="/favicon.ico" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="canonical" href="https://client-only-qrcode.github.io/" />
+    <link rel="canonical" href="%VITE_PUBLIC_URL%" />
     <meta property="og:title" content="Client-only QR code generator" />
     <meta property="og:description" content="A client-only QR code generator using JavaScript." />
-    <meta property="og:image" content="https://client-only-qrcode.github.io/og-image.png" />
+    <meta property="og:image" content="%VITE_PUBLIC_URL%og-image.png" />
+    <meta property="og:url" content="%VITE_PUBLIC_URL%" />
+    <meta property="og:type" content="website" />
+    <meta property="fb:app_id" content="%VITE_FB_APP_ID%" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "Client-only QR Code Generator",
         "description": "A client-only QR code generator using JavaScript",
-        "url": "https://client-only-qrcode.github.io/",
+        "url": "%VITE_PUBLIC_URL%",
         "applicationCategory": "UtilityApplication",
         "operatingSystem": "Any",
         "keywords": "QR code, generator, client-only, JavaScript",
