@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-  <head><meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; script-src 'sha256-nJKf89RJ9ericS2J8dd8TDfdEUB7lbEtIPBWmqqr4jk=' 'sha256-SDQI4/Z0tMnhvdg+NQihvay6ZbBVpJDJhJlh1kCVN1w=' 'strict-dynamic'; style-src 'sha256-j6i0qgbQCVQD9WXBHTWmBgqB69HE+S0qiAFqvx64Gqw=' 'self'" />
+  <head><meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; script-src 'sha256-nJKf89RJ9ericS2J8dd8TDfdEUB7lbEtIPBWmqqr4jk=' 'sha256-SDQI4/Z0tMnhvdg+NQihvay6ZbBVpJDJhJlh1kCVN1w=' 'strict-dynamic'; style-src 'sha256-BhUIkw0SbljLeq61LeJrcAKD05CMxm5zM+FTOA/JJi0=' 'self'" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="Content-Security-Policy" content="" />
@@ -92,6 +92,22 @@
         border-radius: 8px;
       }
 
+      .qr-code-link {
+        transition: box-shadow 0.3s ease;
+      }
+
+      .qr-code-link:hover {
+        box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
+      }
+
+      .qr-code-link:active {
+        box-shadow: 0 2px 4px rgb(0 0 0 / 30%);
+      }
+
+      .qr-code-link:focus-visible {
+        box-shadow: 0 4px 8px rgb(0 0 0 / 30%);
+      }
+
       .qr-code-link:focus {
         outline: 2px solid rgb(0 0 0 / 60%);
         outline-offset: -2px;
@@ -162,32 +178,16 @@
 
       footer {
         padding: 1em;
-        font-size: 0.875em;
         color: rgb(255 255 255 / 60%);
       }
 
       .card {
-        transition: box-shadow 0.3s ease;
         border-radius: 8px;
         background-color: #fff;
-        box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
-      }
-
-      .card:hover {
-        box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
-      }
-
-      .card:active {
-        box-shadow: 0 2px 4px rgb(0 0 0 / 30%);
-      }
-
-      .card:focus {
-        box-shadow: 0 4px 8px rgb(0 0 0 / 30%);
       }
 
       .error-message {
         color: #ff4d4d;
-        text-align: center;
         display: flex;
         align-items: center;
         justify-content: center;
