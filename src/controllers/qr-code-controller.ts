@@ -134,6 +134,7 @@ export class QRCodeController {
     const currentText = this.getCurrentText();
     a.download = FilenameSanitizer.generateQRCodeFilename(currentText);
     a.title = 'Click to download';
+    a.className = 'qr-code-link card';
     a.setAttribute('aria-label', `Download QR code for: ${currentText}`);
 
     // Create data URL for SVG
@@ -164,7 +165,7 @@ export class QRCodeController {
     // Clear container and create error message safely
     this.elements.container.innerHTML = '';
     const errorDiv = document.createElement('div');
-    errorDiv.className = 'error-message';
+    errorDiv.className = 'error-message card';
 
     const errorText = document.createTextNode(
       `Error: ${errorMessage}. Please refresh the page and try again.`

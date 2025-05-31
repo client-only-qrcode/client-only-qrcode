@@ -35,10 +35,11 @@
     </script>
     <style type="text/css">
       :root {
-        font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+        font-family: 'Courier New', Courier, monospace;
         line-height: 1.5;
         font-weight: 400;
         font-size: 16px;
+        text-align: center;
 
         color-scheme: light dark;
         color: rgb(255 255 255 / 87%);
@@ -57,7 +58,6 @@
       }
 
       body {
-        margin: 0;
         display: flex;
         flex-direction: column;
         place-items: center;
@@ -67,29 +67,34 @@
       #app {
         max-width: 600px;
         width: 100%;
-        margin: 0 auto;
         padding: 2rem;
+        flex: 1;
+
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        align-items: center;
+        justify-content: center;
         text-align: center;
       }
 
       #qr-code {
         width: 100%;
-        height: auto;
-        display: block;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
-      #qr-code svg {
-        transition: box-shadow 0.3s ease;
-        box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
-        border-radius: 8px;
+      .qr-code-link,
+      .qr-code-link svg {
         width: 100%;
-        height: auto;
         display: block;
-        cursor: pointer;
+        border-radius: 8px;
       }
 
-      #qr-code svg:hover {
-        box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
+      .qr-code-link:focus {
+        outline: 2px solid rgb(0 0 0 / 60%);
+        outline-offset: -2px;
       }
 
       rect {
@@ -103,15 +108,17 @@
       }
 
       form {
-        max-width: 400px;
-        margin: 2em auto;
         width: 100%;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 0.5em;
+        font-size: 1.125em;
       }
 
       #input-text {
         width: 100%;
-        max-width: 400px;
-        margin: 1em auto;
         padding: 0.5em;
         font-size: 1em;
         font-family: inherit;
@@ -128,6 +135,8 @@
       #input-text:focus {
         border-color: rgb(255 255 255 / 60%);
         box-shadow: inset 0 1px 2px rgb(0 0 0 / 20%);
+        outline: 2px solid rgb(255 255 255 / 40%);
+        outline-offset: -2px;
       }
 
       #input-text::placeholder {
@@ -138,43 +147,58 @@
         color: rgb(255 255 255 / 40%);
       }
 
-      a {
+      footer a {
         color: rgb(255 255 255 / 60%);
         text-decoration: none;
         transition: color 0.3s ease;
       }
 
-      a:hover {
+      footer a:hover,
+      footer a:focus {
         color: rgb(255 255 255 / 87%);
+        outline: 2px solid rgb(255 255 255 / 40%);
+        outline-offset: 2px;
       }
 
       footer {
-        margin-top: auto;
         padding: 1em;
         font-size: 0.875em;
         color: rgb(255 255 255 / 60%);
       }
 
+      .card {
+        transition: box-shadow 0.3s ease;
+        border-radius: 8px;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+      }
+
+      .card:hover {
+        box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
+      }
+
+      .card:active {
+        box-shadow: 0 2px 4px rgb(0 0 0 / 30%);
+      }
+
+      .card:focus {
+        box-shadow: 0 4px 8px rgb(0 0 0 / 30%);
+      }
+
       .error-message {
         color: #ff4d4d;
         text-align: center;
-        aspect-ratio: 1 / 1;
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 2em;
-        border-radius: 8px;
-        background-color: #fff;
-        box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+        aspect-ratio: 1 / 1;
       }
 
       .preload-spacer {
         width: 100%;
         height: 0;
         padding-bottom: 100%; /* Maintain aspect ratio */
-        background: #fff;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
       }
 
       @media (prefers-color-scheme: light) {
@@ -188,12 +212,15 @@
           background-color: #fff;
         }
 
-        a {
+        footer a {
           color: #242424;
         }
 
-        a:hover {
+        footer a:hover,
+        footer a:focus {
           color: #213547;
+          outline: 2px solid rgb(0 0 0 / 60%);
+          outline-offset: 2px;
         }
 
         footer {
@@ -206,13 +233,20 @@
           background-color: #f9f9f9;
           color: #242424;
         }
+
+        #input-text:focus {
+          border-color: rgb(0 0 0 / 60%);
+          box-shadow: inset 0 1px 2px rgb(0 0 0 / 20%);
+          outline: 2px solid rgb(0 0 0 / 40%);
+          outline-offset: -2px;
+        }
       }
     </style>
   </head>
   <body>
     <div id="app">
       <div id="qr-code">
-        <div class="preload-spacer"><!-- This placeholder prevents layout shift --></div>
+        <div class="preload-spacer card"><!-- This placeholder prevents layout shift --></div>
       </div>
       <form>
         <label for="input-text">QR code text</label>
