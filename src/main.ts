@@ -46,7 +46,7 @@ async function initializeApp(): Promise<void> {
     const container = document.querySelector<HTMLDivElement>('#qr-code');
     if (container) {
       container.innerHTML = `
-        <div class="error-message">
+        <div class="error-message card">
           <p>Failed to initialize the application.</p>
           <p>Please refresh the page and try again.</p>
         </div>
