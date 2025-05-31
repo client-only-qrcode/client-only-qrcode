@@ -92,6 +92,22 @@
         border-radius: 8px;
       }
 
+      .qr-code-link {
+        transition: box-shadow 0.3s ease;
+      }
+
+      .qr-code-link:hover {
+        box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
+      }
+
+      .qr-code-link:active {
+        box-shadow: 0 2px 4px rgb(0 0 0 / 30%);
+      }
+
+      .qr-code-link:focus-visible {
+        box-shadow: 0 4px 8px rgb(0 0 0 / 30%);
+      }
+
       .qr-code-link:focus {
         outline: 2px solid rgb(0 0 0 / 60%);
         outline-offset: -2px;
@@ -162,32 +178,16 @@
 
       footer {
         padding: 1em;
-        font-size: 0.875em;
         color: rgb(255 255 255 / 60%);
       }
 
       .card {
-        transition: box-shadow 0.3s ease;
         border-radius: 8px;
         background-color: #fff;
-        box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
-      }
-
-      .card:hover {
-        box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
-      }
-
-      .card:active {
-        box-shadow: 0 2px 4px rgb(0 0 0 / 30%);
-      }
-
-      .card:focus {
-        box-shadow: 0 4px 8px rgb(0 0 0 / 30%);
       }
 
       .error-message {
         color: #ff4d4d;
-        text-align: center;
         display: flex;
         align-items: center;
         justify-content: center;
