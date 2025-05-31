@@ -1,34 +1,36 @@
 import { QRGenerator } from '../core/qr-generator';
 import type { URLHashManager } from '../core/url-hash-manager';
 import { FilenameSanitizer } from '../utils/filename-sanitizer';
-import { sanitizeSVG, sanitizeRemoveSVGStyles } from '../utils/svg-sanitizer';
 
 export interface QRCodeControllerOptions {
   containerSelector: string;
   inputSelector: string;
   qrGenerator: QRGenerator;
   urlHashManager: URLHashManager;
+  debounceDelay?: number;
 }
 
 export interface QRCodeControllerElements {
   container: HTMLDivElement;
-  input: HTMLInputElement;
+  input: HTMLTextAreaElement;
 }
 
 export class QRCodeController {
   private elements: QRCodeControllerElements;
   private qrGenerator: QRGenerator;
   private urlHashManager: URLHashManager;
-  private unstyledSVGContent: string | null = null;
   private styledSVGContent: string | null = null;
   private abortController: AbortController | null = null;
+  private debounceDelay: number = 300; // Default debounce delay
+  private debounceTimeout: number | null = null;
 
   constructor(options: QRCodeControllerOptions) {
     this.qrGenerator = options.qrGenerator;
     this.urlHashManager = options.urlHashManager;
+    this.debounceDelay = options.debounceDelay ?? this.debounceDelay;
 
     const container = document.querySelector<HTMLDivElement>(options.containerSelector);
-    const input = document.querySelector<HTMLInputElement>(options.inputSelector);
+    const input = document.querySelector<HTMLTextAreaElement>(options.inputSelector);
 
     if (!container || !input) {
       throw new Error('Required DOM elements not found');
@@ -47,12 +49,11 @@ export class QRCodeController {
 
       // Generate initial QR code
       await this.updateQRCode();
-
-      // Setup event listeners
-      this.setupEventListeners();
     } catch (error) {
       this.handleError(error);
     }
+
+    this.setupEventListeners();
   }
 
   private initializeHash(): void {
@@ -84,19 +85,25 @@ export class QRCodeController {
   }
 
   private async handleInputChange(event: Event): Promise<void> {
-    const input = event.target as HTMLInputElement;
-    const value = input.value.trim();
+    const input = event.target as HTMLTextAreaElement;
+    const value = input.value;
 
-    try {
-      if (value === '') {
-        this.urlHashManager.removeHash();
-      } else {
-        this.urlHashManager.setHash(value);
-      }
-      await this.updateQRCode();
-    } catch (error) {
-      this.handleError(error);
+    if (this.debounceTimeout) {
+      window.clearTimeout(this.debounceTimeout);
     }
+
+    this.debounceTimeout = window.setTimeout(async () => {
+      try {
+        if (value === '') {
+          this.urlHashManager.removeHash();
+        } else {
+          this.urlHashManager.setHash(value);
+        }
+        await this.updateQRCode();
+      } catch (error) {
+        this.handleError(error);
+      }
+    }, this.debounceDelay);
   }
 
   private async handleHashChange(): Promise<void> {
@@ -113,8 +120,7 @@ export class QRCodeController {
 
     try {
       const rawSVG = await this.qrGenerator.generateSVG(text);
-      this.styledSVGContent = sanitizeSVG(rawSVG);
-      this.unstyledSVGContent = sanitizeRemoveSVGStyles(this.styledSVGContent);
+      this.styledSVGContent = rawSVG;
       this.renderQRCode();
     } catch (error) {
       throw new Error(
@@ -124,7 +130,7 @@ export class QRCodeController {
   }
 
   private renderQRCode(): void {
-    if (!this.unstyledSVGContent || !this.styledSVGContent) return;
+    if (!this.styledSVGContent) return;
 
     // Clear container
     this.elements.container.innerHTML = '';
@@ -143,7 +149,7 @@ export class QRCodeController {
 
     // Parse SVG and append to link
     const parser = new DOMParser();
-    const doc = parser.parseFromString(this.unstyledSVGContent, 'image/svg+xml');
+    const doc = parser.parseFromString(this.styledSVGContent, 'image/svg+xml');
     const svgElement = doc.documentElement as unknown as SVGElement;
 
     // Add accessible label to SVG

@@ -42,15 +42,21 @@ async function initializeApp(): Promise<void> {
   } catch (error) {
     console.error('Failed to initialize QR Code application:', error);
 
-    // Show error in UI
     const container = document.querySelector<HTMLDivElement>('#qr-code');
     if (container) {
-      container.innerHTML = `
-        <div class="error-message card">
-          <p>Failed to initialize the application.</p>
-          <p>Please refresh the page and try again.</p>
-        </div>
-      `;
+      const errorDiv = document.createElement('div');
+      errorDiv.className = 'error-message card';
+
+      const errorText = document.createElement('p');
+      errorText.textContent = 'Failed to initialize the application.';
+
+      const instructionText = document.createElement('p');
+      instructionText.textContent = 'Please refresh the page and try again.';
+
+      errorDiv.appendChild(errorText);
+      errorDiv.appendChild(instructionText);
+
+      container.appendChild(errorDiv);
     }
   }
 }

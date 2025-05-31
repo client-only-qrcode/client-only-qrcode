@@ -1,0 +1,200 @@
+:root {
+  font-family: 'Courier New', Courier, monospace;
+  line-height: 1.5;
+  font-weight: 400;
+  font-size: 16px;
+  text-align: center;
+
+  color-scheme: light dark;
+  color: rgb(255 255 255 / 87%);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizelegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  min-height: 100vh;
+}
+
+#app {
+  max-width: 600px;
+  width: 100%;
+  padding: 2rem;
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+#qr-code {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qr-code-link,
+.qr-code-link svg {
+  width: 100%;
+  display: block;
+  border-radius: 8px;
+}
+
+.qr-code-link {
+  transition: box-shadow 0.3s ease;
+}
+
+.qr-code-link:hover {
+  box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
+}
+
+.qr-code-link:active {
+  box-shadow: 0 2px 4px rgb(0 0 0 / 30%);
+}
+
+.qr-code-link:focus-visible {
+  box-shadow: 0 4px 8px rgb(0 0 0 / 30%);
+}
+
+.qr-code-link:focus {
+  outline: 2px solid rgb(0 0 0 / 60%);
+  outline-offset: -2px;
+}
+
+form {
+  width: 100%;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5em;
+  font-size: 1.125em;
+}
+
+#input-text {
+  width: 100%;
+  padding: 0.5em;
+  font-size: 1em;
+  font-family: inherit;
+  border-radius: 8px;
+  border: 1px solid rgb(255 255 255 / 20%);
+  background-color: #222;
+  color: inherit;
+  box-shadow: inset 0 1px 2px rgb(0 0 0 / 10%);
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+  resize: vertical;
+  min-height: 100px;
+  field-sizing: content;
+}
+
+#input-text:focus {
+  border-color: rgb(255 255 255 / 60%);
+  box-shadow: inset 0 1px 2px rgb(0 0 0 / 20%);
+  outline: 2px solid rgb(255 255 255 / 40%);
+  outline-offset: -2px;
+}
+
+#input-text::placeholder {
+  color: rgb(255 255 255 / 60%);
+}
+
+#input-text:focus::placeholder {
+  color: rgb(255 255 255 / 40%);
+}
+
+footer a {
+  color: rgb(255 255 255 / 60%);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+footer a:hover,
+footer a:focus {
+  color: rgb(255 255 255 / 87%);
+  outline: 2px solid rgb(255 255 255 / 40%);
+  outline-offset: 2px;
+}
+
+footer {
+  padding: 1em;
+  color: rgb(255 255 255 / 60%);
+}
+
+.card {
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.error-message {
+  color: #ff4d4d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2em;
+  aspect-ratio: 1 / 1;
+}
+
+.preload-spacer {
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%; /* Maintain aspect ratio */
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #fff;
+  }
+
+  body {
+    color: #242424;
+    background-color: #fff;
+  }
+
+  footer a {
+    color: #242424;
+  }
+
+  footer a:hover,
+  footer a:focus {
+    color: #213547;
+    outline: 2px solid rgb(0 0 0 / 60%);
+    outline-offset: 2px;
+  }
+
+  footer {
+    color: #242424;
+  }
+
+  #input-text {
+    border: 1px solid #ccc;
+    box-shadow: inset 0 1px 2px rgb(0 0 0 / 10%);
+    background-color: #f9f9f9;
+    color: #242424;
+  }
+
+  #input-text:focus {
+    border-color: rgb(0 0 0 / 60%);
+    box-shadow: inset 0 1px 2px rgb(0 0 0 / 20%);
+    outline: 2px solid rgb(0 0 0 / 40%);
+    outline-offset: -2px;
+  }
+}
